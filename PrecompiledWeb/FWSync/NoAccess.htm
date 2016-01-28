@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>您没有足够的权限</title>
+    <script type="text/javascript">
+        var Second = 3;
+        setInterval(function () {
+            if (Second < 1) {
+                window.location.href = 'Map.aspx';
+            }
+            document.getElementById("Left").innerText = '还剩'+Second+'秒';
+            Second--;
+        }, 1000);
+    </script>
+</head>
+<body>
+    很抱歉，您没有足够的权限，页面将在3秒后跳转,<a href="Map.aspx">点此立即进入</a><br />
+    <div id="Left"></div>
+</body>
+</html>

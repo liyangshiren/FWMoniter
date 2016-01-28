@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+
+body
+{
+	padding:5px;
+}
+select
+{
+	height:20px;
+	line-height:20px;
+}
+.left_form
+{
+    float:left;
+}
+.right_form
+{
+    float:right;
+}
+.none 
+{ 
+	display: none; 
+}
+.plugin
+{
+    width:900px;
+    height:400px;
+    padding:10px;
+	border:1px solid #7F9DB9;     
+}
+/*¿ØÖÆÌ¨*/
+.control
+{
+    width:90px;
+    height:400px;
+    padding:10px;
+    cellspacing:10px;
+	border:1px solid #7F9DB9; 
+}
+.control .btn
+{
+	width:70px;
+	height:22px;
+	line-height:18px;
+}
+.control .sel
+{
+	width:130px;
+}
