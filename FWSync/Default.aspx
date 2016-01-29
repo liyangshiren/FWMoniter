@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>首页</title>
+    <script type="text/javascript" src="./JS/echarts.common.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -67,7 +68,105 @@
         </asp:Repeater>
         <br />
         <br />
-        这里需要有图像，折线图什么的。
+        这里需要有图像，折线图什么的
+        <div id="container" style="width: 600px;height:400px;">
+        </div>
+
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('container'));
+
+            // 指定图表的配置项和数据
+            option = 
+            {
+               tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+
+                            var date = new Date(params.value[0]);
+                            date = date.getFullYear() + '-'
+                                   + (date.getMonth() + 1) + '-'
+                                   + date.getDate() + ' '
+                                   + date.getHours() + ':'
+                                   + date.getMinutes();
+                            
+                            return   '时间:'
+                                   + date +  '<br/>'+ '参数值: '
+                                   + params.value[1] ;
+                    }
+                },
+                legend: {
+                    data: ['温度','一氧化碳']
+                },
+                grid: {
+
+                    containLabel: true
+                },
+
+                xAxis: 
+                [
+                    {
+                        type: 'time'
+                        //boundaryGap: false,
+                        //data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    }
+                ],
+                    yAxis: 
+                [
+                    {
+                        type: 'value',
+                        scale:true
+                    }
+                ],
+                    series: 
+                [
+                    {
+                        name:'温度',
+                        type:'line',
+                        smooth: true,
+                        data:(function (){
+                            var res = [];
+                            var jsonData = <%= jsonstr %>;
+                            var i;
+                            var now = new Date();
+                            for (i = 0; i <  jsonData.j; i++) 
+                           {
+                               res.push([
+                                        now.setTime(jsonData.rows[ jsonData.j - i-1].time1),
+                                        jsonData.rows[ jsonData.j - i-1].price
+                                        ]);
+                               
+                           }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'一氧化碳',
+                        type:'line',
+                        smooth: true,
+                        data:(function (){
+                            var res = [];
+                            var jsonData = <%= jsonstr2 %>;
+                            var i;
+                            var now = new Date();
+                            for (i = 0; i <  jsonData.j; i++) 
+                           {
+                               res.push([
+                                        now.setTime(jsonData.rows[ jsonData.j - i-1].time1),
+                                        jsonData.rows[ jsonData.j - i-1].price
+                                        ]);
+                               
+                           }
+                            return res;
+                        })()
+                    }
+                ]
+            };//end option
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+    </script>
+
     </form>
 </body>
 </html>
